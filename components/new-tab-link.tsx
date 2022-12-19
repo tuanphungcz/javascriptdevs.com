@@ -4,7 +4,7 @@ export const NewTabLink: React.FC<any> = ({ children, href, ...other }) => {
       {...other}
       target="_blank"
       rel="noopener noreferrer"
-      href={`${href}?ref=https://javascriptdevs.com`}
+      href={`${href}?ref=javascriptdevs.com`}
     >
       {children}
     </a>
