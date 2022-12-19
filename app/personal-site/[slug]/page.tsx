@@ -4,7 +4,9 @@ import PersonalSiteCard from "../../../components/personal-site-card";
 import { getBlogBySlug } from "../../../utils/utils";
 
 export async function generateStaticParams() {
-  const { data: blogs }: any = await supabase.from("blogs").select("name");
+  const { data: blogs } = await supabase.from("blogs").select("name");
+
+  if (!blogs) return [];
 
   const paths = await blogs.map(({ name }: any) => ({
     slug: slugify(name.toLowerCase()),
@@ -13,7 +15,7 @@ export async function generateStaticParams() {
   return paths;
 }
 
-export default async function Post({ params }: any) {
+export default async function Post({ params }: { params: { slug: string } }) {
   if (!params?.slug) {
     return null;
   }

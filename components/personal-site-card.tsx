@@ -4,9 +4,10 @@
 import Image from "next/image";
 import { IconBrandGithub, IconExternalLink } from "tabler-icons";
 import { PrimaryButton, SecondaryButton } from "../components/button";
+import { BlogType } from "../types/supabase";
 import NewTabLink from "./new-tab-link";
 
-export default function PersonalSiteCard({ blog }: any) {
+export default function PersonalSiteCard({ blog }: { blog: BlogType }) {
   return (
     <div className="max-w-2xl mx-auto mt-8">
       <div className="p-8 rounded-md bg-white border border-zinc-300">
