@@ -10,7 +10,10 @@ function BlurImage({ blog }: { blog: BlogType }) {
   const [isLoading, setLoading] = useState(true);
 
   return (
-    <Link href={`${blog.websiteUrl}`} className="group">
+    <Link
+      href={`${blog.websiteUrl}?ref=https://javascriptdevs.com`}
+      className="group"
+    >
       {blog?.imageUrl && (
         <div className="aspect-w-1 border aspect-h-1 w-full overflow-hidden rounded-lg object-cover bg-gray-200 xl:aspect-w-7 xl:aspect-h-8">
           <Image
