@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import slugify from "slugify";
 import { BlogType } from "../types/supabase";
 import { cn } from "../utils/utils";
 
@@ -10,7 +11,12 @@ function BlurImage({ blog }: { blog: BlogType }) {
   const [isLoading, setLoading] = useState(true);
 
   return (
-    <Link href={`/personal-site/${blog.id}`} className="group">
+    <Link
+      href={`/personal-site/${slugify(
+        blog.name.toLowerCase().replace(/^https:\/\/|\/$/g, "")
+      )}`}
+      className="group"
+    >
       {blog?.imageUrl && (
         <div className="aspect-w-1 border aspect-h-1 w-full overflow-hidden rounded-lg object-cover bg-gray-200 xl:aspect-w-7 xl:aspect-h-8">
           <Image
