@@ -12,7 +12,7 @@ export interface Database {
       blogs: {
         Row: {
           websiteUrl: string | null;
-          name: string | null;
+          name: string;
           githubUrl: string | null;
           id: number;
           created_at: string | null;
