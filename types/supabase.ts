@@ -15,21 +15,21 @@ export interface Database {
           name: string;
           githubUrl: string;
           id: number;
-          created_at: string;
+          created_at: string | null;
           imageUrl: string | null;
         };
         Insert: {
-          websiteUrl?: string | null;
-          name?: string | null;
-          githubUrl?: string | null;
+          websiteUrl: string;
+          name: string;
+          githubUrl: string;
           id: number;
           created_at?: string | null;
           imageUrl?: string | null;
         };
         Update: {
-          websiteUrl?: string | null;
-          name?: string | null;
-          githubUrl?: string | null;
+          websiteUrl?: string;
+          name?: string;
+          githubUrl?: string;
           id?: number;
           created_at?: string | null;
           imageUrl?: string | null;
@@ -54,5 +54,3 @@ export interface Database {
     };
   };
 }
-
-export type BlogType = Database["public"]["Tables"]["blogs"]["Row"];

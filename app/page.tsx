@@ -1,7 +1,9 @@
 import BlurImage from "../components/blur-image";
 import supabase from "../utils/supabase";
 import Container from "../components/container";
-import { BlogType } from "../types/supabase";
+import Link from "next/link";
+import { BlogType } from "../types/types";
+import slugify from "slugify";
 
 export default async function Gallery() {
   const { data: blogs } = await supabase.from("blogs").select("*");
@@ -27,7 +29,23 @@ export default async function Gallery() {
       <div className="mx-auto max-w-2xl py-16 lg:max-w-[1400px]">
         <div className="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
           {blogs.map((blog: BlogType) => (
-            <BlurImage key={blog.id} blog={blog} />
+            <Link
+              key={blog.id}
+              href={`/personal-site/${slugify(
+                blog.name.toLowerCase().replace(/^https:\/\/|\/$/g, "")
+              )}`}
+              className="group"
+            >
+              {blog.imageUrl && <BlurImage src={blog.imageUrl} />}
+              {blog.websiteUrl && (
+                <h3 className="mt-4 text-sm text-gray-700">
+                  {blog.websiteUrl.replace(/^https:\/\/|\/$/g, "")}
+                </h3>
+              )}
+              <p className="mt-1 text-lg font-medium text-gray-900">
+                {blog.name}
+              </p>
+            </Link>
           ))}
         </div>
       </div>

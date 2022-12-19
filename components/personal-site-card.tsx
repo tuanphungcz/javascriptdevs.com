@@ -1,10 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
-import Image from "next/image";
 import { IconBrandGithub, IconExternalLink } from "tabler-icons";
 import { PrimaryButton, SecondaryButton } from "../components/button";
-import { BlogType } from "../types/supabase";
+import { BlogType } from "../types/types";
 import NewTabLink from "./new-tab-link";
 
 export default function PersonalSiteCard({ blog }: { blog: BlogType }) {
@@ -44,24 +43,15 @@ export default function PersonalSiteCard({ blog }: { blog: BlogType }) {
         </div>
       </div>
 
-      <div className="my-8">
-        <img
-          className="w-screen object-cover rounded-md shadow-md  border border-zinc-300"
-          src={blog.imageUrl}
-          alt=""
-        />
-      </div>
-      {/* <div className="mt-4 relative h-full max-w-2xl aspect-h-1 w-full overflow-hidden rounded-lg border border-zinc-300 object-cover bg-gray-200">
-        <Image
-          className="w-full rounded-md"
-          src={blog.imageUrl}
-          alt=""
-          fill
-          sizes="(max-width: 768px) 100vw,
-          (max-width: 1200px) 50vw,
-          33vw"
-        />
-      </div> */}
+      {blog.imageUrl && (
+        <div className="my-8">
+          <img
+            className="w-screen object-cover rounded-md shadow-md  border border-zinc-300"
+            src={blog.imageUrl}
+            alt=""
+          />
+        </div>
+      )}
     </div>
   );
 }

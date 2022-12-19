@@ -1,7 +1,7 @@
-import { BlogType } from "../../../types/supabase";
+import { BlogType } from "../../../types/types";
 import { getBlogBySlug } from "../../../utils/utils";
 
-export default async function Head({ params }: any) {
+export default async function Head({ params }: { params: { slug: string } }) {
   const blog: BlogType = await getBlogBySlug(params.slug);
   return (
     <>
