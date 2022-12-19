@@ -11,11 +11,11 @@ export interface Database {
     Tables: {
       blogs: {
         Row: {
-          websiteUrl: string | null;
+          websiteUrl: string;
           name: string;
-          githubUrl: string | null;
+          githubUrl: string;
           id: number;
-          created_at: string | null;
+          created_at: string;
           imageUrl: string | null;
         };
         Insert: {

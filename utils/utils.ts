@@ -7,7 +7,10 @@ export function cn(...classes: string[]) {
 }
 
 export const getBlogBySlug = async (slug: string) => {
-  const { data: blogs }: any = await supabase.from("blogs").select("*");
+  const { data: blogs } = await supabase.from("blogs").select("*");
+
+  if (!blogs) return null;
+
   return blogs.find(
     (blog: BlogType) => slugify(blog.name.toLowerCase()) === slug
   );
