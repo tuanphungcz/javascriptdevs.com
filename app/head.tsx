@@ -3,6 +3,8 @@ export default function Head() {
     <>
       <title>JavascriptDevs.com</title>
       <meta content="width=device-width, initial-scale=1" name="viewport" />
+      <meta name="robots" content="follow, index" />
+      <meta name="description" content="Open-source personal blogs and websites" />
       <link rel="icon" href="/favicon.ico" />
       <script
         async
