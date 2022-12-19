@@ -5,7 +5,7 @@ import Link from "next/link";
 import { BlogType } from "../types/types";
 import slugify from "slugify";
 
-export default async function Gallery() {
+export default async function Page() {
   const { data: blogs } = await supabase.from("blogs").select("*");
 
   if (!blogs) {

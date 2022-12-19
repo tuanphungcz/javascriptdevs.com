@@ -21,7 +21,7 @@ export default function RootLayout({
                 href="/"
                 className="self-center font-bold text-black cursor-pointer"
               >
-                JavascriptDevs
+                JavascriptDevs.com
               </Link>
 
               <NewTabLink href="https://dub.sh/javascriptdevs">
