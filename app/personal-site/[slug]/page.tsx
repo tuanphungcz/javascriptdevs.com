@@ -1,7 +1,7 @@
 import slugify from "slugify";
 import supabase from "../../../utils/supabase";
-import PersonalSiteCard from "../../../components/personal-site-card";
 import { getBlogBySlug } from "../../../utils/utils";
+import PersonalSiteCard from "../../../components/personal-site-card";
 
 export async function generateStaticParams() {
   const { data: blogs } = await supabase.from("blogs").select("name");
