@@ -1,5 +1,5 @@
 import slugify from "slugify";
-import { BlogType } from "../types/supabase";
+import { BlogType } from "../types/types";
 import supabase from "./supabase";
 
 export function cn(...classes: string[]) {
