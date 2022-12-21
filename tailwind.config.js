@@ -6,7 +6,11 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      screens: {
+        "xs": "340px",
+      },
+    },
   },
   plugins: [require("@tailwindcss/aspect-ratio")],
 };
