@@ -1,8 +1,8 @@
 import slugify from "slugify";
 import supabase from "../../../utils/supabase";
 import { getBlogBySlug } from "../../../utils/utils";
-import PersonalSiteCard from "../../../components/personal-site-card";
 import Container from "../../../components/container";
+import SiteCard from "../../../components/site-card";
 
 export async function generateStaticParams() {
   const { data: blogs } = await supabase.from("blogs").select("website_url");
@@ -24,7 +24,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
 
   return (
     <Container>
-      <PersonalSiteCard blog={blog} />
+      <SiteCard blog={blog} />
     </Container>
   );
 }

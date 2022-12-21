@@ -32,7 +32,7 @@ export default async function Page() {
           {blogs.map((blog: BlogType) => (
             <Link
               key={blog.id}
-              href={`/personal-site/${slugify(
+              href={`/site/${slugify(
                 blog.website_url.toLowerCase().replace(/^https:\/\/|\/$/g, "")
               )}`}
               className="group"

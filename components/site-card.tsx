@@ -2,12 +2,12 @@
 "use client";
 
 import { IconBrandGithub, IconExternalLink } from "tabler-icons";
-import { PrimaryButton, SecondaryButton } from "../components/button";
+import { PrimaryButton, SecondaryButton } from "./button";
 import { BlogType } from "../types/types";
 import { getGithubUsername } from "../utils/utils";
 import NewTabLink from "./new-tab-link";
 
-export default function PersonalSiteCard({ blog }: { blog: BlogType }) {
+export default function SiteCard({ blog }: { blog: BlogType }) {
   return (
     <div className="max-w-2xl mx-auto mt-8">
       <div className="p-8 rounded-md bg-white border border-zinc-300">
