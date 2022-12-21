@@ -4,9 +4,10 @@ import Container from "../components/container";
 import Link from "next/link";
 import { BlogType } from "../types/types";
 import slugify from "slugify";
+import { getGithubUsername } from "../utils/utils";
 
 export default async function Page() {
-  const { data: blogs } = await supabase.from("blogs").select("*");
+  const { data: blogs, error } = await supabase.from("blogs").select("*");
 
   if (!blogs) {
     return <div>Loading...</div>;
@@ -32,18 +33,18 @@ export default async function Page() {
             <Link
               key={blog.id}
               href={`/personal-site/${slugify(
-                blog.name.toLowerCase().replace(/^https:\/\/|\/$/g, "")
+                blog.website_url.toLowerCase().replace(/^https:\/\/|\/$/g, "")
               )}`}
               className="group"
             >
-              {blog.imageUrl && <BlurImage src={blog.imageUrl} />}
-              {blog.websiteUrl && (
+              {blog.image_url && <BlurImage src={blog.image_url} />}
+              {blog.website_url && (
                 <h3 className="mt-4 text-sm text-gray-700">
-                  {blog.websiteUrl.replace(/^https:\/\/|\/$/g, "")}
+                  {blog.website_url.replace(/^https:\/\/|\/$/g, "")}
                 </h3>
               )}
               <p className="mt-1 text-lg font-medium text-gray-900">
-                {blog.name}
+                {getGithubUsername(blog.github_url)}
               </p>
             </Link>
           ))}

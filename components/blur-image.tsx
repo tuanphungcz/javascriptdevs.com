@@ -8,7 +8,7 @@ function BlurImage({ src }: { src: string }) {
   const [isLoading, setLoading] = useState(true);
 
   return (
-    <div className="aspect-w-1 border aspect-h-1 w-full overflow-hidden rounded-lg object-cover bg-gray-200 xl:aspect-w-7 xl:aspect-h-8">
+    <div className="aspect-w-1 border aspect-h-1 w-full overflow-hidden rounded-lg object-cover bg-gray-200 xl:aspect-w-6 xl:aspect-h-8">
       <Image
         alt=""
         src={src}

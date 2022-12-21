@@ -12,6 +12,13 @@ export const getBlogBySlug = async (slug: string) => {
   if (!blogs) return null;
 
   return blogs.find(
-    (blog: BlogType) => slugify(blog.name.toLowerCase()) === slug
+    (blog: BlogType) =>
+      slugify(blog.website_url.replace(/^https:\/\/|\/$/g, "")) === slug
   );
+};
+
+export const getGithubUsername = (url: string) => {
+  if (!url) return null;
+  const match = url.match(/github\.com\/([^/]+)\/?/);
+  return match && match[1];
 };

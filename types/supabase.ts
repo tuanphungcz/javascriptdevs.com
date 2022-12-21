@@ -11,28 +11,28 @@ export interface Database {
     Tables: {
       blogs: {
         Row: {
-          websiteUrl: string;
+          website_url: string;
           name: string;
-          githubUrl: string;
+          github_url: string;
           id: number;
           created_at: string | null;
-          imageUrl: string | null;
+          image_url: string | null;
         };
         Insert: {
-          websiteUrl: string;
+          website_url: string;
           name: string;
-          githubUrl: string;
+          github_url: string;
           id: number;
           created_at?: string | null;
-          imageUrl?: string | null;
+          image_url?: string | null;
         };
         Update: {
-          websiteUrl?: string;
+          website_url?: string;
           name?: string;
-          githubUrl?: string;
+          github_url?: string;
           id?: number;
           created_at?: string | null;
-          imageUrl?: string | null;
+          image_url?: string | null;
         };
       };
     };

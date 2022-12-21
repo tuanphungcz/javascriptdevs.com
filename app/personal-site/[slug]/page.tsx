@@ -9,8 +9,8 @@ export async function generateStaticParams() {
 
   if (!blogs) return [];
 
-  const paths = await blogs.map(({ name }: any) => ({
-    slug: slugify(name.toLowerCase()),
+  const paths = await blogs.map(({ website_url }: any) => ({
+    slug: slugify(website_url.replace(/^https:\/\/|\/$/g, "")),
   }));
 
   return paths;
