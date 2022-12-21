@@ -22,3 +22,16 @@ export const getGithubUsername = (url: string) => {
   const match = url.match(/github\.com\/([^/]+)\/?/);
   return match && match[1];
 };
+
+export const getKeys = (dataset: any) => {
+  const object: any = {};
+  if (dataset.length > 0) {
+    for (const item of dataset) {
+      if (!object[item.category] && item?.category?.length > 0) {
+        object[item.category] = item.category;
+      }
+    }
+  }
+
+  return Object.keys(object);
+};

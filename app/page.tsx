@@ -1,13 +1,9 @@
-import BlurImage from "../components/blur-image";
 import supabase from "../utils/supabase";
+import ListSite from "../components/list-site";
 import Container from "../components/container";
-import Link from "next/link";
-import { BlogType } from "../types/types";
-import slugify from "slugify";
-import { getGithubUsername } from "../utils/utils";
 
 export default async function Page() {
-  const { data: blogs, error } = await supabase.from("blogs").select("*");
+  const { data: blogs } = await supabase.from("blogs").select("*");
 
   if (!blogs) {
     return <div>Loading...</div>;
@@ -27,29 +23,8 @@ export default async function Page() {
           13 and Supabase as a open-source project.
         </p>
       </div>
-      <div className="mx-auto max-w-2xl py-16 lg:max-w-[1400px]">
-        <div className="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
-          {blogs.map((blog: BlogType) => (
-            <Link
-              key={blog.id}
-              href={`/site/${slugify(
-                blog.website_url.toLowerCase().replace(/^https:\/\/|\/$/g, "")
-              )}`}
-              className="group"
-            >
-              {blog.image_url && <BlurImage src={blog.image_url} />}
-              {blog.website_url && (
-                <h3 className="mt-4 text-sm text-gray-700">
-                  {blog.website_url.replace(/^https:\/\/|\/$/g, "")}
-                </h3>
-              )}
-              <p className="mt-1 text-lg font-medium text-gray-900">
-                {getGithubUsername(blog.github_url)}
-              </p>
-            </Link>
-          ))}
-        </div>
-      </div>
+
+      <ListSite blogs={blogs} />
     </Container>
   );
 }
