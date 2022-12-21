@@ -5,7 +5,7 @@ import PersonalSiteCard from "../../../components/personal-site-card";
 import Container from "../../../components/container";
 
 export async function generateStaticParams() {
-  const { data: blogs } = await supabase.from("blogs").select("name");
+  const { data: blogs } = await supabase.from("blogs").select("website_url");
 
   if (!blogs) return [];
 
