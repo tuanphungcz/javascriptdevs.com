@@ -3,7 +3,7 @@ import Container from "../../components/container";
 import SiteCard from "../../components/site-card";
 
 import { prisma } from "../../server/db/client";
-import { getBlogBySlug, stripUrl } from "../../utils/utils";
+import { getBlogBySlug, getGithubUsername, stripUrl } from "../../utils/utils";
 
 export default function Page({ blog }: any) {
   if (!blog) {
@@ -11,9 +11,29 @@ export default function Page({ blog }: any) {
   }
 
   return (
-    <Container>
-      <SiteCard blog={blog} />
-    </Container>
+    <>
+      <title>{`${getGithubUsername(
+        blog.github_url
+      )} | JavascriptDevs.com`}</title>
+      <meta content="width=device-width, initial-scale=1" name="viewport" />
+      <meta name="robots" content="follow, index" />
+      <meta
+        name="description"
+        content={`Open-source projects and website by ${getGithubUsername(
+          blog.name
+        )}`}
+      />
+      <link rel="icon" href="/favicon.ico" />
+      <script
+        async
+        defer
+        data-website-id={process.env.NEXT_PUBLIC_UMAMI_ID}
+        src="https://umami-nu.vercel.app/umami.js"
+      ></script>
+      <Container>
+        <SiteCard blog={blog} />
+      </Container>
+    </>
   );
 }
 
