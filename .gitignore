@@ -40,7 +40,5 @@ yarn-error.log*
 
 # typescript
 *.tsbuildinfo
-
-src/pages/api/private/
-src/pages/api/private/*
 pages/api/private/*
+pages/api/private

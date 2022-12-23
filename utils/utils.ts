@@ -1,4 +1,3 @@
-import { Sites } from "@prisma/client";
 import slugify from "slugify";
 
 export function cn(...classes: string[]) {
@@ -10,7 +9,7 @@ export const getBlogBySlug = (slug: string, blogs: any) => {
 
   return blogs.find(
     (blog: any) => slugify(stripUrl(blog.websiteUrl)) === slug
-  ) as Array<Sites>;
+  ) as any;
 };
 
 export const getGithubUsername = (url: string) => {
