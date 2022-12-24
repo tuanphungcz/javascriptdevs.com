@@ -1,13 +1,19 @@
 import { type NextPage } from "next";
 import { trpc } from "../utils/trpc";
 import Container from "../components/container";
-import ListSite from "../components/list-site";
+import { useState } from "react";
+import JobList from "../components/job-list";
 import StartOnGithubButton from "../components/star-on-github-button";
 
 const Home: NextPage = () => {
-  const { data: sites } = trpc.example.getAllSites.useQuery();
+  const [selectedFilter, setSelectedFilter] = useState<string>("");
 
-  if (!sites) return <div>Loading...</div>;
+  const { data: jobs } = trpc.example.getAllJobs.useQuery({
+    filter: selectedFilter,
+    sortByNewest: true,
+  });
+
+  if (!jobs) return null;
 
   return (
     <>
@@ -28,19 +34,24 @@ const Home: NextPage = () => {
       <Container>
         <div className="mx-auto mt-32 flex max-w-xl flex-col items-center space-y-4">
           <StartOnGithubButton />
-          <h1 className="text-center text-4xl font-bold tracking-tight text-zinc-800 sm:text-5xl">
+          <h1 className="tracking-loose text-center text-4xl font-bold text-zinc-800 sm:text-5xl">
             <span className="bg-gradient-to-r from-yellow-500 to-orange-600 bg-clip-text font-extrabold text-transparent">
-              Awesome open-source
+              Javascript & Typescript
             </span>{" "}
-            projects and websites
+            jobs from HackerNews
           </h1>
           <p className="mt-6 text-center text-xl text-zinc-600">
-            I am building a collection of awesome and websites with Next.js 13
-            and Supabase as a open-source project.
+            A collection of jobs from hackernews who is hiring thread
           </p>
         </div>
 
-        {sites && <ListSite sites={sites} />}
+        <div className="mx-auto mt-16 max-w-4xl">
+          <JobList
+            jobs={jobs}
+            setSelectedFilter={setSelectedFilter}
+            selectedFilter={selectedFilter}
+          />
+        </div>
       </Container>
     </>
   );

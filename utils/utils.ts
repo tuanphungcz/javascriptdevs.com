@@ -1,31 +1,36 @@
+import type { Site } from "@prisma/client";
 import slugify from "slugify";
 
 export function cn(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 
-export const getBlogBySlug = (slug: string, blogs: any) => {
-  if (!blogs) return null;
+export const getSiteBySlug = (slug: string, sites: Site[]) => {
+  if (!sites) return "";
 
-  return blogs.find(
-    (blog: any) => slugify(stripUrl(blog.websiteUrl)) === slug
-  ) as any;
+  return sites.find(
+    (site: Site) => slugify(stripUrl(site.websiteUrl)) === slug
+  );
 };
 
-export const getGithubUsername = (url: string) => {
-  if (!url) return null;
+export const getGithubUsername = (url: string | null) => {
+  if (!url) return "";
   const match = url.match(/github\.com\/([^/]+)\/?/);
   return match && match[1];
 };
 
-export const getKeys = (dataset: any) => {
+export const getKeys = (sites: Site[]) => {
   const object: {
     [key: string]: string;
   } = {};
 
-  if (dataset.length > 0) {
-    for (const item of dataset) {
-      if (!object[item.category] && item?.category?.length > 0) {
+  if (sites.length > 0) {
+    for (const item of sites) {
+      if (
+        item?.category &&
+        !object[item.category] &&
+        item?.category?.length > 0
+      ) {
         object[item.category] = item.category;
       }
     }
@@ -34,12 +39,32 @@ export const getKeys = (dataset: any) => {
   return Object.keys(object);
 };
 
-export const stripUrl = (url: any) => {
+export const stripUrl = (url: string | null) => {
   if (!url) {
-    return null;
+    return "";
   }
   return url
     .replace(/^https?:\/\//, "")
     .replace(/\/$/, "")
     .replace("www.", "");
+};
+
+export const mainTechSlugs = [
+  // "html",
+  // "css",
+  // "frontend",
+  // "fullstack",
+  // "backend",
+  "react",
+  "javascript",
+  "typescript",
+  "react native",
+  "tailwind",
+  "angular",
+];
+
+
+export const sanitize = (text: string) => {
+  const re = new RegExp(/[-[\]{}@()!=*+?.,\\^$|#\s]/, "g");
+  return text.replace(re, "\\$&");
 };
