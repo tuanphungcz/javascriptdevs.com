@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.marked-text a {
+  color: rgb(42, 95, 255);
+}
+
+.marked-text code {
+  word-break: break-all;
+}

@@ -1,7 +1,7 @@
 import { cn } from "../utils/utils";
 
 const commonButtonProps =
-  "inline-flex items-center px-4 py-2 text-sm space-x-2 font-medium transition rounded-xl cursor-pointer font-medium relative";
+  "inline-flex items-center px-4 py-2 text-sm space-x-2 font-medium transition rounded-lg cursor-pointer font-medium relative";
 
 export const PrimaryButton: React.FC<any> = ({ children, ...other }) => {
   return (

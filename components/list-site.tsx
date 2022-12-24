@@ -6,23 +6,24 @@ import { getGithubUsername, getKeys, stripUrl } from "../utils/utils";
 import { cn } from "../utils/utils";
 import { IconStar } from "tabler-icons";
 import { PrimaryButton } from "./button";
+import type { Site } from "@prisma/client";
 
 const ALL = "All";
 const DEFAULT_VISIBLE_ITEMS = 8;
 
-export default function ListSite({ blogs }: { blogs: any[] }) {
-  const [initialDataset, setInitialDataset] = useState(blogs);
+export default function ListSite({ sites }: { sites: Site[] }) {
+  const [initialDataset, setInitialDataset] = useState(sites);
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [visibleItems, setVisibleItems] = useState(DEFAULT_VISIBLE_ITEMS);
-  const keys = getKeys(blogs);
+  const keys = getKeys(sites);
 
   const handleCategoryClick = (category: string) => {
     setSelectedCategory(category);
     setVisibleItems(DEFAULT_VISIBLE_ITEMS);
     if (category === ALL) {
-      return setInitialDataset(blogs);
+      return setInitialDataset(sites);
     }
-    setInitialDataset(blogs.filter((item: any) => item.category === category));
+    setInitialDataset(sites.filter((item: Site) => item.category === category));
   };
 
   return (
@@ -44,41 +45,43 @@ export default function ListSite({ blogs }: { blogs: any[] }) {
             ))}
           </div>
           <div className="py-2 text-xs text-gray-500">
-            Showing {initialDataset.length} of {blogs.length}
+            Showing {initialDataset.length} of {sites.length}
           </div>
         </div>
       )}
       <div className="grid grid-cols-1 gap-y-10 gap-x-6 xs:grid-cols-2 md:grid-cols-3 xl:gap-x-8 2xl:grid-cols-4">
-        {initialDataset.slice(0, visibleItems).map((blog: any) => (
+        {initialDataset.slice(0, visibleItems).map((site: Site) => (
           <Link
-            key={blog.id}
-            href={`/site/${slugify(stripUrl(blog.websiteUrl))}`}
+            key={site.id}
+            href={`/site/${slugify(
+              (site.websiteUrl && stripUrl(site.websiteUrl)) || "no-url"
+            )}`}
             className="group"
           >
-            {blog.imageUrl && <BlurImage src={blog.imageUrl} />}
+            {site.imageUrl && <BlurImage src={site.imageUrl} />}
             <div className="mt-4 flex items-center justify-between">
               <h3 className=" text-sm text-gray-700">
-                By {getGithubUsername(blog.githubUrl)}
+                By {site.githubUrl && getGithubUsername(site.githubUrl)}
               </h3>
-              {blog?.stargazersCount && (
+              {site?.stargazersCount && (
                 <div className="flex items-center justify-between space-x-2">
                   <IconStar className="h-4 w-4" />
                   <div className="text-xs text-gray-700">
-                    {blog.stargazersCount}
+                    {site.stargazersCount}
                   </div>
                 </div>
               )}
             </div>
 
             <h1 className="mt-2 mb-4 text-lg font-medium text-gray-900">
-              {stripUrl(blog.websiteUrl)}
+              {site.websiteUrl && stripUrl(site.websiteUrl)}
             </h1>
 
-            {blog.description && (
+            {site.description && (
               <p className="text-sm text-gray-700">
-                {blog.description?.length > 80
-                  ? blog.description?.slice(0, 80) + "..."
-                  : blog.description}
+                {site.description?.length > 80
+                  ? site.description?.slice(0, 80) + "..."
+                  : site.description}
               </p>
             )}
           </Link>

@@ -1,27 +1,26 @@
+import type { Site } from "@prisma/client";
 import slugify from "slugify";
 import Container from "../../components/container";
 import SiteCard from "../../components/site-card";
 
 import { prisma } from "../../server/db/client";
-import { getBlogBySlug, getGithubUsername, stripUrl } from "../../utils/utils";
+import { getSiteBySlug, getGithubUsername, stripUrl } from "../../utils/utils";
 
-export default function Page({ blog }: any) {
-  if (!blog) {
+export default function Page({ site }: { site: Site }) {
+  if (!site) {
     return null;
   }
 
+  const githubName = getGithubUsername(site.githubUrl);
+
   return (
     <>
-      <title>{`${getGithubUsername(
-        blog.github_url
-      )} | JavascriptDevs.com`}</title>
+      <title>{`${githubName} | JavascriptDevs.com`}</title>
       <meta content="width=device-width, initial-scale=1" name="viewport" />
       <meta name="robots" content="follow, index" />
       <meta
         name="description"
-        content={`Open-source projects and website by ${getGithubUsername(
-          blog.name
-        )}`}
+        content={`Open-source projects and website by ${githubName}`}
       />
       <link rel="icon" href="/favicon.ico" />
       <script
@@ -31,7 +30,7 @@ export default function Page({ blog }: any) {
         src="https://umami-nu.vercel.app/umami.js"
       ></script>
       <Container>
-        <SiteCard blog={blog} />
+        <SiteCard site={site} />
       </Container>
     </>
   );
@@ -44,7 +43,7 @@ export const getStaticPaths = async () => {
     },
   });
 
-  const paths = sites.map(({ websiteUrl }: any) => {
+  const paths = sites.map(({ websiteUrl }: { websiteUrl: string | null }) => {
     return {
       params: {
         slug: slugify(stripUrl(websiteUrl)),
@@ -69,19 +68,21 @@ export const getStaticProps = async ({
 
   const sites = await prisma.site.findMany({
     select: {
+      id: true,
       websiteUrl: true,
       description: true,
       category: true,
       imageUrl: true,
       stargazersCount: true,
+      githubUrl: true,
     },
   });
 
-  const blog = getBlogBySlug(params.slug, sites);
+  const site = getSiteBySlug(params.slug, sites);
 
   return {
     props: {
-      blog,
+      site,
     },
   };
 };

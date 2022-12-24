@@ -1,5 +1,8 @@
 module.exports = {
-    images: {
-      domains: ['bsoxtsjklpbtebzhkubl.supabase.co'],
-    },
-  }
+  images: {
+    domains: [
+      "bsoxtsjklpbtebzhkubl.supabase.co",
+      "avatars.githubusercontent.com",
+    ],
+  },
+};

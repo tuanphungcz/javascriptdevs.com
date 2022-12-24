@@ -15,19 +15,20 @@ model Example {
 }
 
 model Account {
-  id                String  @id @default(cuid())
-  userId            String
-  type              String
-  provider          String
-  providerAccountId String
-  refresh_token     String?
-  access_token      String?
-  expires_at        Int?
-  token_type        String?
-  scope             String?
-  id_token          String?
-  session_state     String?
-  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id                       String  @id @default(cuid())
+  userId                   String
+  type                     String
+  provider                 String
+  providerAccountId        String
+  refresh_token            String?
+  access_token             String?
+  expires_at               Int?
+  token_type               String?
+  scope                    String?
+  id_token                 String?
+  session_state            String?
+  refresh_token_expires_in Int?
+  user                     User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
   @@index([userId])
@@ -54,7 +55,7 @@ model User {
 }
 
 model Site {
-  id              String    @id
+  id              String  @id
   stargazersCount Int?
   imageUrl        String?
   category        String?
@@ -69,4 +70,42 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model JobStory {
+  id       Int       @id @default(autoincrement())
+  jobItems JobItem[]
+
+  title             String
+  firebaseId        Int      @unique
+  firebaseCreatedAt DateTime @default(now())
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model JobItem {
+  id                Int      @id @default(autoincrement())
+  by                String
+  company           String?
+  text              String
+  firebaseId        Int      @unique
+  firebaseCreatedAt DateTime
+  storyId           Int
+  jobStory          JobStory @relation(fields: [storyId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  json              Json?
+  partTime          Boolean  @default(false)
+  contract          Boolean  @default(false)
+  title             String?
+  remote            Boolean  @default(false)
+  jobTags           JobTag[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model JobTag {
+  id       Int       @id @default(autoincrement())
+  slug     String    @unique
+  jobItems JobItem[]
 }
