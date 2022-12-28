@@ -1,20 +1,9 @@
 import { type NextPage } from "next";
-import { trpc } from "../utils/trpc";
 import Container from "../components/container";
-import { useState } from "react";
 import JobList from "../components/job-list";
 import StartOnGithubButton from "../components/star-on-github-button";
 
 const Home: NextPage = () => {
-  const [selectedFilter, setSelectedFilter] = useState<string>("");
-
-  const { data: jobs } = trpc.example.getAllJobs.useQuery({
-    filter: selectedFilter,
-    sortByNewest: true,
-  });
-
-  if (!jobs) return null;
-
   return (
     <>
       <title>JavascriptDevs.com</title>
@@ -46,11 +35,7 @@ const Home: NextPage = () => {
         </div>
 
         <div className="mx-auto mt-16 max-w-4xl">
-          <JobList
-            jobs={jobs}
-            setSelectedFilter={setSelectedFilter}
-            selectedFilter={selectedFilter}
-          />
+          <JobList />
         </div>
       </Container>
     </>

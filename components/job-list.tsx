@@ -1,5 +1,6 @@
 import { useState } from "react";
-import type { RouterOutputs } from "../utils/trpc";
+import type { RouterOutputs} from "../utils/trpc";
+import { trpc } from "../utils/trpc";
 import { cn, mainTechSlugs } from "../utils/utils";
 import { PrimaryButton } from "./button";
 import JobCard from "./job-card";
@@ -9,18 +10,14 @@ const DEFAULT_VISIBLE_ITEMS = 10;
 type JobsType = RouterOutputs["example"]["getAllJobs"];
 type JobWithTagsType = JobsType[0];
 
-type Props = {
-  jobs: JobsType;
-  setSelectedFilter: (filter: string) => void;
-  selectedFilter: string;
-};
-
-const JobList: React.FC<Props> = ({
-  jobs,
-  setSelectedFilter,
-  selectedFilter,
-}) => {
+const JobList: React.FC = () => {
+  const [selectedFilter, setSelectedFilter] = useState<string>("");
   const [visibleItems, setVisibleItems] = useState(DEFAULT_VISIBLE_ITEMS);
+
+  const { data: jobs } = trpc.example.getAllJobs.useQuery({
+    filter: selectedFilter,
+    sortByNewest: true,
+  });
 
   return (
     <div>
@@ -48,21 +45,25 @@ const JobList: React.FC<Props> = ({
         </div>
       )}
 
-      <div className="marked-text space-y-8">
-        {jobs?.slice(0, visibleItems).map((job: JobWithTagsType) => (
-          <JobCard key={job.id} job={job} />
-        ))}
-      </div>
-      {visibleItems >= jobs?.length ? null : (
-        <div className="my-16 text-center">
-          <PrimaryButton
-            onClick={() =>
-              setVisibleItems(visibleItems + DEFAULT_VISIBLE_ITEMS)
-            }
-          >
-            Load more projects
-          </PrimaryButton>
-        </div>
+      {jobs && (
+        <>
+          <div className="marked-text space-y-8">
+            {jobs?.slice(0, visibleItems).map((job: JobWithTagsType) => (
+              <JobCard key={job.id} job={job} />
+            ))}
+          </div>
+          {visibleItems >= jobs?.length ? null : (
+            <div className="my-16 text-center">
+              <PrimaryButton
+                onClick={() =>
+                  setVisibleItems(visibleItems + DEFAULT_VISIBLE_ITEMS)
+                }
+              >
+                Load more projects
+              </PrimaryButton>
+            </div>
+          )}
+        </>
       )}
     </div>
   );
