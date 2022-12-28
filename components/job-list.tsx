@@ -1,5 +1,7 @@
+import { useSession } from "next-auth/react";
 import { useState } from "react";
-import type { RouterOutputs} from "../utils/trpc";
+import { toast } from "react-hot-toast";
+import type { RouterOutputs } from "../utils/trpc";
 import { trpc } from "../utils/trpc";
 import { cn, mainTechSlugs } from "../utils/utils";
 import { PrimaryButton } from "./button";
@@ -13,6 +15,7 @@ type JobWithTagsType = JobsType[0];
 const JobList: React.FC = () => {
   const [selectedFilter, setSelectedFilter] = useState<string>("");
   const [visibleItems, setVisibleItems] = useState(DEFAULT_VISIBLE_ITEMS);
+  const {data: session} = useSession()
 
   const { data: jobs } = trpc.example.getAllJobs.useQuery({
     filter: selectedFilter,
@@ -55,9 +58,19 @@ const JobList: React.FC = () => {
           {visibleItems >= jobs?.length ? null : (
             <div className="my-16 text-center">
               <PrimaryButton
-                onClick={() =>
-                  setVisibleItems(visibleItems + DEFAULT_VISIBLE_ITEMS)
-                }
+                onClick={() => {
+                  if (session?.user?.email) {
+                    return setVisibleItems(
+                      visibleItems + DEFAULT_VISIBLE_ITEMS
+                    );
+                  }
+                  return toast(
+                    "Please login via Github to unlock all projects!",
+                    {
+                      icon: "🔓",
+                    }
+                  );
+                }}
               >
                 Load more projects
               </PrimaryButton>

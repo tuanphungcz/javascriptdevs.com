@@ -7,6 +7,8 @@ import { cn } from "../utils/utils";
 import { IconStar } from "tabler-icons";
 import { PrimaryButton } from "./button";
 import type { Site } from "@prisma/client";
+import { useSession } from "next-auth/react";
+import { toast } from "react-hot-toast";
 
 const ALL = "All";
 const DEFAULT_VISIBLE_ITEMS = 8;
@@ -15,6 +17,7 @@ export default function ListSite({ sites }: { sites: Site[] }) {
   const [initialDataset, setInitialDataset] = useState(sites);
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [visibleItems, setVisibleItems] = useState(DEFAULT_VISIBLE_ITEMS);
+  const { data: session } = useSession();
   const keys = getKeys(sites);
 
   const handleCategoryClick = (category: string) => {
@@ -90,9 +93,14 @@ export default function ListSite({ sites }: { sites: Site[] }) {
       {visibleItems >= initialDataset.length ? null : (
         <div className="my-16 text-center">
           <PrimaryButton
-            onClick={() =>
-              setVisibleItems(visibleItems + DEFAULT_VISIBLE_ITEMS)
-            }
+            onClick={() => {
+              if (session?.user?.email) {
+                return setVisibleItems(visibleItems + DEFAULT_VISIBLE_ITEMS);
+              }
+              return toast("Please login via Github to unlock all projects!", {
+                icon: "🔓",
+              });
+            }}
           >
             Load more projects
           </PrimaryButton>
