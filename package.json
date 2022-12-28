@@ -6,6 +6,7 @@
     "build": "next build",
     "dev": "next dev",
     "postinstall": "prisma generate",
+    "postbuild": "next-sitemap",
     "lint": "next lint",
     "start": "next start"
   },
@@ -27,6 +28,7 @@
     "html-to-text": "^9.0.3",
     "next": "13.0.2",
     "next-auth": "^4.18.3",
+    "next-sitemap": "^3.1.43",
     "p-limit": "^4.0.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
