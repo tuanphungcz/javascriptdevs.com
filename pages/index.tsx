@@ -35,8 +35,8 @@ const Home: NextPage = () => {
             projects and websites
           </h1>
           <p className="mt-6 text-center text-xl text-zinc-600">
-            I am building a collection of awesome and websites with Next.js 13
-            and Supabase as a open-source project.
+            Awesome open-source websites and projects with Next 13, Prisma, Trpc
+            and TailwindCSS
           </p>
         </div>
 
