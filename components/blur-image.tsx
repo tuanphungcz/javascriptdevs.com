@@ -8,7 +8,7 @@ function BlurImage({ src }: { src: string }) {
   const [isLoading, setLoading] = useState(true);
 
   return (
-    <div className="border w-full overflow-hidden rounded-lg object-cover bg-gray-200 aspect-w-6 aspect-h-8">
+    <div className="border w-full overflow-hidden rounded-lg object-cover bg-gray-200 aspect-w-6 aspect-h-4">
       <Image
         alt=""
         src={src}
