@@ -2,7 +2,9 @@ import { type NextPage } from "next";
 import { trpc } from "../utils/trpc";
 import Container from "../components/container";
 import ListSite from "../components/list-site";
-import StartOnGithubButton from "../components/star-on-github-button";
+import GithubRepoButton from "../components/github-repo-button";
+import { PrimaryButton } from "../components/button";
+import Link from "next/link";
 
 const Home: NextPage = () => {
   const { data: sites } = trpc.site.getAllActive.useQuery();
@@ -27,7 +29,6 @@ const Home: NextPage = () => {
       ></script>
       <Container>
         <div className="mx-auto mt-32 flex max-w-xl flex-col items-center space-y-4">
-          <StartOnGithubButton />
           <h1 className="text-center text-4xl font-bold tracking-tight text-zinc-800 sm:text-5xl">
             <span className="bg-gradient-to-r from-yellow-500 to-orange-600 bg-clip-text font-extrabold text-transparent">
               Awesome open-source
@@ -35,9 +36,16 @@ const Home: NextPage = () => {
             projects and websites
           </h1>
           <p className="mt-6 text-center text-xl text-zinc-600">
-            Discover the Best Open-Source projects and website built with
-            Javascript
+            Discover the Best Open-Source projects and website built with React,
+            Next.js, Tailwind CSS, and more.
           </p>
+
+          <div className="flex items-center space-x-4">
+            <Link href="/submit">
+              <PrimaryButton>Submit a project</PrimaryButton>
+            </Link>
+            <GithubRepoButton />
+          </div>
         </div>
 
         {sites && <ListSite sites={sites} />}

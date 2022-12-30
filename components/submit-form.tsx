@@ -3,7 +3,6 @@ import toast from "react-hot-toast";
 import { IconBrandGithub, IconHome } from "tabler-icons";
 import { trpc } from "../utils/trpc";
 import { PrimaryButton } from "./button";
-import Card from "./card";
 import { Input } from "./form";
 
 const INITIAL = {
@@ -33,12 +32,12 @@ export default function SubmitForm() {
   };
 
   return (
-    <div className="mx-auto max-w-xl">
-      <form onSubmit={handleSubmit(submit)} className="w-full space-y-8">
-        <Card className="bg-white sm:rounded">
+    <div className="mx-auto max-w-lg">
+      <form onSubmit={handleSubmit(submit)} className="w-full space-y-8 ">
+        <div className="w-full rounded-lg border shadow-md">
           <div className="border-b p-8 md:col-span-1">
             <h1 className="text-lg font-medium leading-6 text-gray-900">
-              Submit Site
+              Submit an open-source project
             </h1>
             <p className="mt-2 text-sm text-gray-500">
               Submit your site to be featured on JavascriptDevs.com
@@ -61,9 +60,11 @@ export default function SubmitForm() {
           </div>
 
           <div className="flex justify-end space-x-4 p-8 ">
-            <PrimaryButton type="submit">Update profile</PrimaryButton>
+            <PrimaryButton fullWidth type="submit">
+              Submit new project
+            </PrimaryButton>
           </div>
-        </Card>
+        </div>
       </form>
     </div>
   );
@@ -72,21 +73,21 @@ export default function SubmitForm() {
 const defaultBaseInputs = [
   {
     id: "githubUrl",
-    label: "Github Url",
+    label: "Github link",
     component: Input,
     placeholder: "https://github.com/tuanphungcz/javascriptdevs.com",
     validation: {
-      required: "Please enter your Github Url",
+      required: "Please enter your Github link",
     },
     prefix: <IconBrandGithub className="w-4" />,
   },
   {
     id: "websiteUrl",
-    label: "Website Url",
+    label: "Website link",
     component: Input,
     placeholder: "https://javascriptdevs.com",
     validation: {
-      required: "Please enter your website Url",
+      required: "Please enter your website link",
     },
     prefix: <IconHome className="w-4" />,
   },

@@ -36,6 +36,7 @@
     "react-dom": "18.2.0",
     "react-hook-form": "^7.41.2",
     "react-hot-toast": "^2.4.0",
+    "react-useanimations": "^2.10.0",
     "slugify": "^1.6.5",
     "superjson": "1.9.1",
     "tabler-icons": "^1.35.0",
