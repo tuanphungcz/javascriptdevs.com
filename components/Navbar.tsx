@@ -16,17 +16,9 @@ const Navbar = () => {
                 href="/"
                 className="mr-8 cursor-pointer self-center font-bold text-black"
               >
-                JavascriptDevs.com
-              </Link>
-              <Link href="/">
-                <div className=" text-sm font-medium text-slate-600">
-                  OSS showcase
-                </div>
-              </Link>
-              <Link href="/who-is-hiring">
-                <div className=" text-sm font-medium text-slate-600">
-                  Who is hiring?
-                </div>
+                <span className="hidden sm:inline">JavascriptDevs</span>
+                <span className="inline sm:hidden">JsDevs</span>
+                <span>.com</span>
               </Link>
             </div>
 
