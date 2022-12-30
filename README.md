@@ -1,8 +1,8 @@
+![screenshot](https://javascriptdevs.com/og-image.jpg)
+
 # [JavascriptDevs.com](https://javascriptdevs.com)
 
 Awesome open-source projects and websites. Discover the Best Open-Source projects and website built with React, Next.js, Tailwind CSS, and more.
-
-![screenshot](https://linkstacks.xyz/og-image.jpg)
 
 ## Features
 
@@ -35,4 +35,4 @@ yarn dev
 
 ## License
 
-Licensed under the [MIT license](https://github.com/tuanphungcz/linkstacks.vercel.app).
+Licensed under the [GPLv3 license](https://github.com/tuanphungcz/javascriptdevs.com/blob/main/license.md). If you are creating an open source application under a license compatible with the GNU GPL license v3, you may use this project under the terms of the GPLv3.
