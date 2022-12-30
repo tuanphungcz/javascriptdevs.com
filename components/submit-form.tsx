@@ -1,3 +1,4 @@
+import { useSession } from "next-auth/react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { IconBrandGithub, IconHome } from "tabler-icons";
@@ -16,8 +17,12 @@ export default function SubmitForm() {
   });
 
   const mutation = trpc.site.add.useMutation();
-
+  const { data: session } = useSession();
   const submit = async (values: { githubUrl: string; websiteUrl: string }) => {
+    if (!session) {
+      toast.error("Please login to submit a project");
+      return;
+    }
     await mutation.mutate(values, {
       onSuccess: () => {
         console.log("success");

@@ -36,8 +36,8 @@ const Navbar = () => {
                 </SecondaryButton>
               </div>
             ) : (
-              <PrimaryButton onClick={() => signIn("github")}>
-                Login with Github
+              <PrimaryButton onClick={() => signIn()}>
+                Login
               </PrimaryButton>
             )}
           </div>
