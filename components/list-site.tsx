@@ -9,7 +9,7 @@ import { PrimaryButton } from "./button";
 import type { Site } from "@prisma/client";
 
 const ALL = "All";
-const DEFAULT_VISIBLE_ITEMS = 6;
+const DEFAULT_VISIBLE_ITEMS = 12;
 
 export default function ListSite({ sites }: { sites: Site[] }) {
   const [initialDataset, setInitialDataset] = useState(sites);

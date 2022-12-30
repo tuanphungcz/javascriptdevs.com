@@ -34,8 +34,7 @@ function InputWrapper({
           {helper}
         </div>
       )}
-
-      {error && <div className="text-sm text-red-500">{error.message}</div>}
+      {error && <div className="text-xs text-red-500">{error.message}</div>}
     </div>
   );
 }

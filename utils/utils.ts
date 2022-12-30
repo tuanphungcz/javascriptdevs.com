@@ -1,16 +1,13 @@
-import type { Site } from "@prisma/client";
 import slugify from "slugify";
 
 export function cn(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 
-export const getSiteBySlug = (slug: string, sites: Site[]) => {
+export const getSiteBySlug = (slug: string, sites: any) => {
   if (!sites) return "";
 
-  return sites.find(
-    (site: Site) => slugify(stripUrl(site.websiteUrl)) === slug
-  );
+  return sites.find((site: any) => slugify(stripUrl(site.websiteUrl)) === slug);
 };
 
 export const getGithubUsername = (url: string | null) => {
@@ -19,7 +16,7 @@ export const getGithubUsername = (url: string | null) => {
   return match && match[1];
 };
 
-export const getKeys = (sites: Site[]) => {
+export const getKeys = (sites: any) => {
   const object: {
     [key: string]: string;
   } = {};
@@ -62,7 +59,6 @@ export const mainTechSlugs = [
   "tailwind",
   "angular",
 ];
-
 
 export const sanitize = (text: string) => {
   const re = new RegExp(/[-[\]{}@()!=*+?.,\\^$|#\s]/, "g");

@@ -5,7 +5,7 @@ import ListSite from "../components/list-site";
 import StartOnGithubButton from "../components/star-on-github-button";
 
 const Home: NextPage = () => {
-  const { data: sites } = trpc.example.getAllSites.useQuery();
+  const { data: sites } = trpc.site.getAllActive.useQuery();
 
   if (!sites) return <div>Loading...</div>;
 
@@ -35,8 +35,8 @@ const Home: NextPage = () => {
             projects and websites
           </h1>
           <p className="mt-6 text-center text-xl text-zinc-600">
-            Awesome open-source websites and projects with Next 13, Prisma, Trpc
-            and TailwindCSS
+            Discover the Best Open-Source projects and website built with
+            Javascript
           </p>
         </div>
 

@@ -1,5 +1,3 @@
-"use client";
-
 import Image from "next/image";
 import { useState } from "react";
 import { cn } from "../utils/utils";
@@ -8,7 +6,7 @@ function BlurImage({ src }: { src: string }) {
   const [isLoading, setLoading] = useState(true);
 
   return (
-    <div className="border w-full overflow-hidden rounded-lg object-cover border-gray-300 aspect-w-6 aspect-h-4">
+    <div className="aspect-w-6 aspect-h-4 w-full overflow-hidden rounded-lg border border-gray-300 object-cover">
       <Image
         alt=""
         src={src}
@@ -17,7 +15,7 @@ function BlurImage({ src }: { src: string }) {
           (max-width: 1200px) 50vw,
           33vw"
         className={cn(
-          "duration-700 ease-in-out object-cover group-hover:opacity-75 object-top group-hover:scale-110",
+          "object-cover object-top duration-700 ease-in-out group-hover:scale-105 group-hover:opacity-75",
           isLoading
             ? "scale-110 blur-2xl grayscale"
             : "scale-100 blur-0 grayscale-0"

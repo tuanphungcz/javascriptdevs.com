@@ -4,10 +4,6 @@ import Container from "../components/container";
 import SubmitForm from "../components/submit-form";
 
 const Home: NextPage = () => {
-  const { data: sites } = trpc.example.getAllSites.useQuery();
-
-  if (!sites) return <div>Loading...</div>;
-
   return (
     <>
       <title>JavascriptDevs.com</title>
