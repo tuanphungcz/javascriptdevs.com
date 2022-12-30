@@ -1,5 +1,5 @@
 module.exports = {
-  siteUrl: "https://javascriptdevs.com",
+  siteUrl: process.env.SITE_URL,
   generateRobotsTxt: true,
   sitemapSize: 7000,
 };
