@@ -1,12 +1,17 @@
-# Create T3 App
+# [JavascriptDevs.com](https://javascriptdevs.com)
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+Awesome open-source projects and websites. Discover the Best Open-Source projects and website built with React, Next.js, Tailwind CSS, and more.
 
-## What's next? How do I make an app with this?
+![screenshot](https://linkstacks.xyz/og-image.jpg)
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
+## Features
 
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
+- Display list of open-source projects and websites.
+- Filtering by categories.
+- Submitting new projects.
+- Cron job for daily Github stars update.
+
+## Tech-stack
 
 - [Next.js](https://nextjs.org)
 - [NextAuth.js](https://next-auth.js.org)
@@ -14,15 +19,20 @@ If you are not familiar with the different technologies used in this project, pl
 - [Tailwind CSS](https://tailwindcss.com)
 - [tRPC](https://trpc.io)
 
-## Learn More
+## Running Locally
 
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
+1. Install dependencies using Yarn:
 
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
+```sh
+yarn
+```
 
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
+2. Start the development server:
 
-## How do I deploy this?
+```sh
+yarn dev
+```
 
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+## License
+
+Licensed under the [MIT license](https://github.com/tuanphungcz/linkstacks.vercel.app).
