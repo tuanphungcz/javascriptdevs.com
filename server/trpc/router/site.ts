@@ -12,6 +12,19 @@ export const siteRouter = router({
       },
     });
   }),
+  get6RandomActive: publicProcedure.query(({ ctx }) => {
+    return ctx.prisma.site.findMany({
+      where: {
+        imageUrl: {
+          not: null,
+        },
+      },
+      take: 3,
+      orderBy: {
+        stargazersCount: "desc",
+      },
+    });
+  }),
   add: publicProcedure
     .input(
       z.object({
