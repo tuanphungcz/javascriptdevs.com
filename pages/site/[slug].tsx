@@ -6,14 +6,17 @@ import Link from "next/link";
 
 import { prisma } from "../../server/db/client";
 import { getSiteBySlug, getGithubUsername, stripUrl } from "../../utils/utils";
-import { trpc } from "../../utils/trpc";
 import BlurImage from "../../components/blur-image";
 import { IconStar } from "tabler-icons";
 
-export default function Page({ site }: { site: Site }) {
-  const { data: sites } = trpc.site.get6RandomActive.useQuery();
-
-  if (!site) {
+export default function Page({
+  site,
+  random3Sites,
+}: {
+  site: Site;
+  random3Sites: Site[];
+}) {
+  if (!site || !random3Sites) {
     return null;
   }
 
@@ -46,7 +49,7 @@ export default function Page({ site }: { site: Site }) {
             You might also like
           </h2>
           <div className="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 md:grid-cols-3 xl:gap-x-8">
-            {sites?.map((site: Site) => (
+            {random3Sites?.map((site: Site) => (
               <Link
                 key={site.id}
                 href={`/site/${slugify(
@@ -131,11 +134,18 @@ export const getStaticProps = async ({
     },
   });
 
+  // Shuffle array
+  const shuffled = sites.sort(() => 0.5 - Math.random());
+
+  // Get sub-array of first n elements after shuffled
+  const random3Sites = shuffled.slice(0, 3);
+
   const site = getSiteBySlug(params.slug, sites);
 
   return {
     props: {
       site,
+      random3Sites,
     },
   };
 };

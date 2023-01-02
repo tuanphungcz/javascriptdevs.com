@@ -10,18 +10,13 @@ import BlurImage from "./blur-image";
 export default function SiteCard({ site }: { site: Site }) {
   return (
     <>
-      <div className="mx-auto mt-8 max-w-2xl">
+      <div className="mx-auto mt-8 max-w-2xl text-left">
         <div className="mb-8 rounded-md">
-          <h1 className="mt-1 text-2xl font-medium text-gray-900 capitalize">
-            {site.githubUrl && getGithubUsername(site.githubUrl)}
-          </h1>
-          {site.description && (
-            <p className="mt-2 flex text-sm text-gray-700">
-              {site.description}
-            </p>
-          )}
+          <div className="flex items-center justify-between ">
+            <h1 className="mt-1 text-3xl font-bold capitalize text-gray-900">
+              {site.githubUrl && getGithubUsername(site.githubUrl)}
+            </h1>
 
-          <div className="mt-4">
             {site?.stargazersCount && (
               <div className="inline-flex items-center justify-between space-x-2">
                 <IconStar className="h-4 w-4" />
@@ -31,7 +26,11 @@ export default function SiteCard({ site }: { site: Site }) {
               </div>
             )}
           </div>
-          <div className="mt-4 flex justify-end space-x-4">
+          {site.description && (
+            <p className="mt-2 text-gray-700">{site.description}</p>
+          )}
+
+          <div className="mt-4 flex space-x-4">
             {site.githubUrl && (
               <NewTabLink href={site.githubUrl}>
                 <SecondaryButton>
