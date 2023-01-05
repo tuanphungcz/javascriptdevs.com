@@ -77,3 +77,9 @@ model VerificationToken {
 
   @@unique([identifier, token])
 }
+
+model ViewsCount {
+  id     String @id @default(cuid())
+  itemId String
+  count  BigInt @default(1)
+}
