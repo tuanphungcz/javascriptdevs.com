@@ -5,7 +5,6 @@ import ListSite from "../components/list-site";
 import GithubRepoButton from "../components/github-repo-button";
 import { PrimaryButton } from "../components/button";
 import Link from "next/link";
-import { Query } from "@tanstack/react-query";
 
 const Home: NextPage = () => {
   const { data: sites } = trpc.site.getAllActive.useQuery();
@@ -40,7 +39,7 @@ const Home: NextPage = () => {
           </p>
 
           <div className="flex items-center space-x-4">
-            <Link href="/submit">
+            <Link href="https://airtable.com/shrwaqGgNDP6l9Rgh">
               <PrimaryButton>Submit a project</PrimaryButton>
             </Link>
             <GithubRepoButton />
