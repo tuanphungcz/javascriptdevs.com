@@ -3,10 +3,72 @@ import { z } from "zod";
 import { router, publicProcedure } from "../trpc";
 
 export const siteRouter = router({
-  getAllActive: publicProcedure.query(({ ctx }) => {
+  getAllActive: publicProcedure.query(({ ctx, input }) => {
     return ctx.prisma.site.findMany({
       where: {
         imageUrl: {
+          not: null,
+        },
+      },
+    });
+  }),
+
+  getFiltered: publicProcedure
+    .input(
+      z.object({
+        tag: z.string().nullable(),
+        category: z.string().nullable(),
+      })
+    )
+    .query(({ ctx, input }) => {
+      const and = input?.tag
+        ? {
+            techTags: {
+              has: input.tag,
+            },
+          }
+        : {};
+
+      const category = input?.category
+        ? {
+            category: input.category,
+          }
+        : {};
+      return ctx.prisma.site.findMany({
+        where: {
+          imageUrl: {
+            not: null,
+          },
+          OR: [and, category],
+        },
+      });
+    }),
+  getTags: publicProcedure
+    .input(
+      z.object({
+        tag: z.string(),
+      })
+    )
+    .query(({ ctx, input }) => {
+      return ctx.prisma.site.aggregate({
+        _count: {
+          techTags: true,
+        },
+        where: {
+          techTags: {
+            has: input.tag,
+          },
+        },
+      });
+    }),
+  getCategoryCounts: publicProcedure.query(({ ctx, input }) => {
+    return ctx.prisma.site.groupBy({
+      by: ["category"],
+      _count: {
+        category: true,
+      },
+      where: {
+        category: {
           not: null,
         },
       },
