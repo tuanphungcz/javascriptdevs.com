@@ -6,6 +6,7 @@ import GithubRepoButton from "../../../components/github-repo-button";
 import { PrimaryButton } from "../../../components/button";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { prisma } from "../../../server/db/client";
 
 const Home: NextPage = () => {
   const { query }: any = useRouter();
@@ -61,3 +62,41 @@ const Home: NextPage = () => {
 };
 
 export default Home;
+
+export const getStaticPaths = async () => {
+  const categories = await prisma.site.groupBy({
+    by: ["category"],
+    where: {
+      category: {
+        not: null,
+      },
+    },
+  });
+
+  const paths = categories.map((category: any) => {
+    return {
+      params: {
+        category: category.category,
+      },
+    };
+  });
+
+  return {
+    paths,
+    fallback: true,
+  };
+};
+
+export const getStaticProps = async ({
+  params,
+}: {
+  params: { category: string };
+}) => {
+  if (!params?.category) {
+    return null;
+  }
+
+  return {
+    props: {},
+  };
+};
