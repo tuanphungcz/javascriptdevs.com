@@ -2,7 +2,7 @@ import { useState } from "react";
 import BlurImage from "../components/blur-image";
 import Link from "next/link";
 import slugify from "slugify";
-import { getGithubUsername, stripUrl } from "../utils/utils";
+import { allTags, getGithubUsername, stripUrl } from "../utils/utils";
 import { cn } from "../utils/utils";
 import { IconStar } from "tabler-icons";
 import { PrimaryButton } from "./button";
@@ -10,33 +10,19 @@ import type { Site } from "@prisma/client";
 import { trpc } from "../utils/trpc";
 
 const DEFAULT_VISIBLE_ITEMS = 12;
-const tags = [
-  "react",
-  "next",
-  "tailwindcss",
-  "vue",
-  "zod",
-  "zustand",
-  // "@supabase/supabase-js",
-  // "@trpc/client",
-  "gatsby",
-  "graphql",
-  "react-hook-form",
-  "react-redux",
-];
 
-const Tag = ({ item, tag }: any) => {
+const Tag = ({ item, count }: any) => {
   return (
     <Link
       href={`/site/tag/${item}`}
       className={cn(
         "flex cursor-pointer items-center whitespace-nowrap rounded-md border border-gray-300 bg-white px-2 py-1 text-xs font-medium capitalize text-gray-500 shadow-sm transition hover:border-gray-400",
-        tag === item ? "border-zinc-500 text-gray-600" : ""
+        false === item ? "border-zinc-500 text-gray-600" : ""
       )}
     >
       {item}{" "}
-      <span className="ml-1 inline-flex rounded-full bg-gray-200 p-1">
-        {/* {count?._count.techTags} */}
+      <span className="ml-2 flex h-5 w-6 items-center justify-center rounded bg-slate-100 text-xs">
+        {count}
       </span>
     </Link>
   );
@@ -46,10 +32,12 @@ export default function ListSite({
   sites,
   tag,
   category,
+  tagsWithCount,
 }: {
   sites?: Site[];
   tag?: any;
   category?: any;
+  tagsWithCount: any;
 }) {
   const [visibleItems, setVisibleItems] = useState(DEFAULT_VISIBLE_ITEMS);
   const { data: categories } = trpc.site.getCategoryCounts.useQuery();
@@ -86,8 +74,8 @@ export default function ListSite({
         Tech
       </div>
       <div className="no-scrollbar flex space-x-2 overflow-auto">
-        {tags.map((item) => (
-          <Tag item={item} key={item} tag={tag} />
+        {allTags.map((item: string) => (
+          <Tag item={item} key={item} count={tagsWithCount?.[item] || ""} />
         ))}
       </div>
       <div className="mt-8 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 md:grid-cols-3 xl:gap-x-8">
@@ -125,6 +113,19 @@ export default function ListSite({
                     ? site.description?.slice(0, 80) + "..."
                     : site.description}
                 </p>
+              )}
+              {site?.techTags && (
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {site.techTags.map((tag: string) => (
+                    <Link
+                      key={tag}
+                      href={`/site/tag/${tag}`}
+                      className="rounded bg-gray-100 px-1 py-0.5 text-xs font-medium text-gray-500"
+                    >
+                      {tag}
+                    </Link>
+                  ))}
+                </div>
               )}
             </Link>
           ))}

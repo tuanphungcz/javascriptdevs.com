@@ -8,6 +8,7 @@ import Link from "next/link";
 
 const Home: NextPage = () => {
   const { data: sites } = trpc.site.getAllActive.useQuery();
+  const { data: tagsWithCount } = trpc.site.getAllTechTagsAndCount.useQuery();
 
   return (
     <>
@@ -46,7 +47,12 @@ const Home: NextPage = () => {
           </div>
         </div>
 
-        {sites && <ListSite sites={sites} category={null} tag={null} />}
+        <ListSite
+          sites={sites}
+          category={null}
+          tag={null}
+          tagsWithCount={tagsWithCount}
+        />
       </Container>
     </>
   );

@@ -1,12 +1,10 @@
 import {
   Input,
   TextArea,
-  MultiSelectInput,
-  SingleSelectInput,
+
 } from "../components/form";
 import Card from "../components/card";
 import NewTabLink from "./new-tab-link";
-import { Button } from "@mantine/core";
 import {
   roleLevel,
   roles,
@@ -22,6 +20,7 @@ import {
   IconHome,
 } from "@tabler/icons";
 import { IconGlobe } from "tabler-icons";
+import { PrimaryButton } from "./button";
 
 const socialInputs = [
   {
@@ -198,20 +197,20 @@ export default function EditForm({
           <div className="flex justify-end space-x-4">
             {profile?.slug && (
               <NewTabLink href={`http://${profile?.slug}.javascriptdevs.com`}>
-                <Button variant="default" color="dark">
+                <PrimaryButton variant="default" color="dark">
                   Preview Profile
-                </Button>
+                </PrimaryButton>
               </NewTabLink>
             )}
 
-            <Button
+            <PrimaryButton
               color="dark"
               type="submit"
               className="bg-black"
               disabled={!session}
             >
               {profile?.email ? "Update profile" : " Create Profile"}
-            </Button>
+            </PrimaryButton>
           </div>
         </div>
       </form>

@@ -56,18 +56,17 @@ model User {
 }
 
 model Site {
-  id              String    @id @default(cuid())
+  id              String   @id @default(cuid())
   stargazersCount Int?
   imageUrl        String?
   category        String?
   websiteUrl      String?
   githubUrl       String?
   description     String?
-  isPublished     Boolean   @default(false)
-  User            User?     @relation(fields: [userId], references: [id])
+  isPublished     Boolean  @default(false)
+  User            User?    @relation(fields: [userId], references: [id])
   userId          String?
   techTags        String[]
-
   @@index([userId])
 }
 

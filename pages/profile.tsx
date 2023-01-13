@@ -90,12 +90,12 @@ export const getServerSideProps = async (context: any) => {
     where: { email: session?.user?.email },
     select: {
       id: true,
-      name: true,
-      email: true,
-      image: true,
-      bio: true,
-      twitterUrl: true,
-      githubUrl: true,
+      // name: true,
+      // email: true,
+      // image: true,
+      // bio: true,
+      // twitterUrl: true,
+      // githubUrl: true,
     },
   });
 

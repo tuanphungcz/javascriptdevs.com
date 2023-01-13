@@ -64,3 +64,20 @@ export const sanitize = (text: string) => {
   const re = new RegExp(/[-[\]{}@()!=*+?.,\\^$|#\s]/, "g");
   return text.replace(re, "\\$&");
 };
+
+export const tags = {
+  react: "react",
+  next: "next",
+  tailwindcss: "tailwindcss",
+  vue: "vue",
+  zod: "zod",
+  zustand: "zustand",
+  "@supabase/supabase-js": "supabase",
+  "@trpc/client": "trpc",
+  gatsby: "gatsby",
+  graphql: "graphql",
+  "react-hook-form": "react-hook-form",
+  "react-redux": "react-redux",
+};
+
+export const allTags = Object.values(tags)
