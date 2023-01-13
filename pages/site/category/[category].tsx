@@ -8,6 +8,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { prisma } from "../../../server/db/client";
 import TechTags from "../../../components/tech-tags";
+import type { Site } from "@prisma/client";
 
 const Home: NextPage = () => {
   const { query }: any = useRouter();
@@ -15,7 +16,7 @@ const Home: NextPage = () => {
   const { data: sites } = trpc.site.getFiltered.useQuery({
     tag: null,
     category: query?.category,
-  });
+  }) as { data: Site[] };
 
   return (
     <>

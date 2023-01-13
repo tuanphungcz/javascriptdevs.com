@@ -6,9 +6,12 @@ import GithubRepoButton from "../components/github-repo-button";
 import { PrimaryButton } from "../components/button";
 import Link from "next/link";
 import TechTags from "../components/tech-tags";
+import { Site } from "@prisma/client";
 
 const Home: NextPage = () => {
-  const { data: sites } = trpc.site.getAllActive.useQuery();
+  const { data: sites } = trpc.site.getAllActive.useQuery() as {
+    data: Site[];
+  };
 
   return (
     <>

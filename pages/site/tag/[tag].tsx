@@ -8,15 +8,14 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import TechTags from "../../../components/tech-tags";
 import { allTags } from "../../../utils/utils";
+import type { Site } from "@prisma/client";
 
 const Home: NextPage = () => {
   const { query }: any = useRouter();
   const { data: sites } = trpc.site.getFiltered.useQuery({
     category: null,
     tag: query?.tag,
-  });
-
-  console.log("sites", sites?.length);
+  }) as { data: Site[] };
 
   return (
     <>

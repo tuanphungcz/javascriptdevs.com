@@ -10,67 +10,65 @@ import BlurAvatar from "./blur-avatar";
 
 const DEFAULT_VISIBLE_ITEMS = 12;
 
-export default function ListSite({ sites }: { sites?: Site[] }) {
+export default function ListSite({ sites }: { sites: Site[] }) {
   const [visibleItems, setVisibleItems] = useState(DEFAULT_VISIBLE_ITEMS);
 
   return (
     <div className="mx-auto">
       <div className="mt-8 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 md:grid-cols-3 xl:gap-x-8">
-        {sites &&
-          sites.slice(0, visibleItems).map((site: Site) => (
-            <Link
-              key={site.id + site.websiteUrl}
-              href={`/site/${slugify(
-                (site.websiteUrl && stripUrl(site.websiteUrl)) || "no-url"
-              )}`}
-              className="group"
-            >
-              {site.imageUrl && <BlurImage src={site.imageUrl} />}
-              <div className="mt-4 flex items-center justify-between">
-                <div className="flex items-center space-x-2">
-                  {site.avatarUrl && <BlurAvatar src={site.avatarUrl} />}
-                  <h3 className=" text-sm text-gray-700">
-                    By {site.githubUrl && getGithubUsername(site.githubUrl)}
-                  </h3>
+        {sites?.slice(0, visibleItems).map((site: Site) => (
+          <Link
+            key={site.id + site.websiteUrl}
+            href={`/site/${slugify(
+              (site.websiteUrl && stripUrl(site.websiteUrl)) || "no-url"
+            )}`}
+            className="group"
+          >
+            {site.imageUrl && <BlurImage src={site.imageUrl} />}
+            <div className="mt-4 flex items-center justify-between">
+              <div className="flex items-center space-x-2">
+                {site.avatarUrl && <BlurAvatar src={site.avatarUrl} />}
+                <h3 className=" text-sm text-gray-700">
+                  By {site.githubUrl && getGithubUsername(site.githubUrl)}
+                </h3>
+              </div>
+              {site?.stargazersCount && (
+                <div className="flex items-center justify-between space-x-2">
+                  <IconStar className="h-4 w-4" />
+                  <div className="text-xs text-gray-700">
+                    {site.stargazersCount}
+                  </div>
                 </div>
-                {site?.stargazersCount && (
-                  <div className="flex items-center justify-between space-x-2">
-                    <IconStar className="h-4 w-4" />
-                    <div className="text-xs text-gray-700">
-                      {site.stargazersCount}
+              )}
+            </div>
+
+            <div className="mt-4 space-y-2">
+              <h1 className="text-xl font-bold text-gray-800">
+                {site.websiteUrl && stripUrl(site.websiteUrl)}
+              </h1>
+
+              {site.description && (
+                <p className="text-sm text-gray-700">
+                  {site.description?.length > 80
+                    ? site.description?.slice(0, 80) + "..."
+                    : site.description}
+                </p>
+              )}
+              {site?.techTags && (
+                <div className="flex flex-wrap gap-2">
+                  {site.techTags.map((tag: string) => (
+                    <div
+                      key={tag}
+                      className="rounded bg-gray-100 px-2 py-0.5 text-xs font-medium text-gray-500"
+                    >
+                      {tag}
                     </div>
-                  </div>
-                )}
-              </div>
-
-              <div className="mt-4 space-y-2">
-                <h1 className="text-xl font-bold text-gray-800">
-                  {site.websiteUrl && stripUrl(site.websiteUrl)}
-                </h1>
-
-                {site.description && (
-                  <p className="text-sm text-gray-700">
-                    {site.description?.length > 80
-                      ? site.description?.slice(0, 80) + "..."
-                      : site.description}
-                  </p>
-                )}
-                {site?.techTags && (
-                  <div className="flex flex-wrap gap-2">
-                    {site.techTags.map((tag: string) => (
-                      <Link
-                        key={tag}
-                        href={`/site/tag/${tag}`}
-                        className="rounded bg-gray-100 px-2 py-0.5 text-xs font-medium text-gray-500"
-                      >
-                        {tag}
-                      </Link>
-                    ))}
-                  </div>
-                )}
-              </div>
-            </Link>
-          ))}
+                  ))}
+                </div>
+              )}
+            </div>
+          </Link>
+        ))}
       </div>
       {sites && visibleItems >= sites?.length ? null : (
         <div className="my-16 text-center">
