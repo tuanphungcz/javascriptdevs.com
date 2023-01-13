@@ -46,7 +46,7 @@ const Home: NextPage = () => {
           </p>
 
           <div className="flex items-center space-x-4">
-            <Link href="/submit">
+            <Link href="https://airtable.com/shrwaqGgNDP6l9Rgh">
               <PrimaryButton>Submit a project</PrimaryButton>
             </Link>
             <GithubRepoButton />
