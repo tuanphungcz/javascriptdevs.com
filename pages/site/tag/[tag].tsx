@@ -6,6 +6,8 @@ import GithubRepoButton from "../../../components/github-repo-button";
 import { PrimaryButton } from "../../../components/button";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import TechTags from "../../../components/tech-tags";
+import { allTags } from "../../../utils/utils";
 
 const Home: NextPage = () => {
   const { query }: any = useRouter();
@@ -13,7 +15,8 @@ const Home: NextPage = () => {
     category: null,
     tag: query?.tag,
   });
-  const { data: tagsWithCount } = trpc.site.getAllTechTagsAndCount.useQuery();
+
+  console.log("sites", sites?.length);
 
   return (
     <>
@@ -51,13 +54,8 @@ const Home: NextPage = () => {
             <GithubRepoButton />
           </div>
         </div>
-
-        <ListSite
-          sites={sites}
-          category={null}
-          tag={query.tag}
-          tagsWithCount={tagsWithCount}
-        />
+        <TechTags />
+        <ListSite sites={sites} />
       </Container>
     </>
   );
@@ -65,4 +63,23 @@ const Home: NextPage = () => {
 
 export default Home;
 
-// Path: pages/site/category/[category].tsx
+export const getStaticPaths = async () => {
+  const paths = allTags.map((tag: any) => {
+    return {
+      params: {
+        tag,
+      },
+    };
+  });
+
+  return {
+    paths,
+    fallback: true,
+  };
+};
+
+export const getStaticProps = async () => {
+  return {
+    props: {},
+  };
+};

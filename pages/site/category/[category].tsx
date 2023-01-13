@@ -7,10 +7,10 @@ import { PrimaryButton } from "../../../components/button";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { prisma } from "../../../server/db/client";
+import TechTags from "../../../components/tech-tags";
 
 const Home: NextPage = () => {
   const { query }: any = useRouter();
-  const { data: tagsWithCount } = trpc.site.getAllTechTagsAndCount.useQuery();
 
   const { data: sites } = trpc.site.getFiltered.useQuery({
     tag: null,
@@ -54,12 +54,8 @@ const Home: NextPage = () => {
           </div>
         </div>
 
-        <ListSite
-          sites={sites}
-          category={query?.category}
-          tag={null}
-          tagsWithCount={tagsWithCount}
-        />
+        <TechTags />
+        <ListSite sites={sites} />
       </Container>
     </>
   );
@@ -91,15 +87,7 @@ export const getStaticPaths = async () => {
   };
 };
 
-export const getStaticProps = async ({
-  params,
-}: {
-  params: { category: string };
-}) => {
-  if (!params?.category) {
-    return null;
-  }
-
+export const getStaticProps = async () => {
   return {
     props: {},
   };

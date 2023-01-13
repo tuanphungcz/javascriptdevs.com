@@ -67,6 +67,8 @@ model Site {
   User            User?    @relation(fields: [userId], references: [id])
   userId          String?
   techTags        String[]
+  avatarUrl       String?
+
   @@index([userId])
 }
 

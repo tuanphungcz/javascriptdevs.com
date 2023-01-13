@@ -1,5 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
-
 import { IconBrandGithub, IconExternalLink, IconStar } from "tabler-icons";
 import { PrimaryButton, SecondaryButton } from "./button";
 import { getGithubUsername } from "../utils/utils";

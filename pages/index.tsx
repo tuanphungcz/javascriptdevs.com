@@ -5,10 +5,10 @@ import ListSite from "../components/list-site";
 import GithubRepoButton from "../components/github-repo-button";
 import { PrimaryButton } from "../components/button";
 import Link from "next/link";
+import TechTags from "../components/tech-tags";
 
 const Home: NextPage = () => {
   const { data: sites } = trpc.site.getAllActive.useQuery();
-  const { data: tagsWithCount } = trpc.site.getAllTechTagsAndCount.useQuery();
 
   return (
     <>
@@ -46,13 +46,8 @@ const Home: NextPage = () => {
             <GithubRepoButton />
           </div>
         </div>
-
-        <ListSite
-          sites={sites}
-          category={null}
-          tag={null}
-          tagsWithCount={tagsWithCount}
-        />
+        <TechTags />
+        <ListSite sites={sites} />
       </Container>
     </>
   );

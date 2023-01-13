@@ -2,82 +2,19 @@ import { useState } from "react";
 import BlurImage from "../components/blur-image";
 import Link from "next/link";
 import slugify from "slugify";
-import { allTags, getGithubUsername, stripUrl } from "../utils/utils";
-import { cn } from "../utils/utils";
+import { getGithubUsername, stripUrl } from "../utils/utils";
 import { IconStar } from "tabler-icons";
 import { PrimaryButton } from "./button";
 import type { Site } from "@prisma/client";
-import { trpc } from "../utils/trpc";
+import BlurAvatar from "./blur-avatar";
 
 const DEFAULT_VISIBLE_ITEMS = 12;
 
-const Tag = ({ item, count }: any) => {
-  return (
-    <Link
-      href={`/site/tag/${item}`}
-      className={cn(
-        "flex cursor-pointer items-center whitespace-nowrap rounded-md border border-gray-300 bg-white px-2 py-1 text-xs font-medium capitalize text-gray-500 shadow-sm transition hover:border-gray-400",
-        false === item ? "border-zinc-500 text-gray-600" : ""
-      )}
-    >
-      {item}{" "}
-      <span className="ml-2 flex h-5 w-6 items-center justify-center rounded bg-slate-100 text-xs">
-        {count}
-      </span>
-    </Link>
-  );
-};
-
-export default function ListSite({
-  sites,
-  tag,
-  category,
-  tagsWithCount,
-}: {
-  sites?: Site[];
-  tag?: any;
-  category?: any;
-  tagsWithCount: any;
-}) {
+export default function ListSite({ sites }: { sites?: Site[] }) {
   const [visibleItems, setVisibleItems] = useState(DEFAULT_VISIBLE_ITEMS);
-  const { data: categories } = trpc.site.getCategoryCounts.useQuery();
 
   return (
-    <div className="mx-auto py-16">
-      {categories && categories?.length > 0 && (
-        <div className="py-4">
-          <div className="mb-2 text-[14px] font-semibold uppercase text-gray-600">
-            Category
-          </div>
-          <div className="no-scrollbar flex space-x-2 overflow-auto">
-            {categories.map((item) => (
-              <Link
-                href={`/site/category/${item.category}`}
-                key={item.category}
-                className={cn(
-                  "flex cursor-pointer items-center whitespace-nowrap rounded-md border border-gray-300 bg-white px-2 py-1 text-xs font-medium capitalize text-gray-500 shadow-sm transition hover:border-gray-400",
-                  category === item.category
-                    ? "border-zinc-500 text-gray-600"
-                    : ""
-                )}
-              >
-                {item.category}{" "}
-                <span className="ml-2 flex h-5 w-6 items-center justify-center rounded bg-slate-100 text-xs">
-                  {item._count.category}
-                </span>
-              </Link>
-            ))}
-          </div>
-        </div>
-      )}
-      <div className="mb-2 text-[14px] font-semibold uppercase text-gray-600">
-        Tech
-      </div>
-      <div className="no-scrollbar flex space-x-2 overflow-auto">
-        {allTags.map((item: string) => (
-          <Tag item={item} key={item} count={tagsWithCount?.[item] || ""} />
-        ))}
-      </div>
+    <div className="mx-auto">
       <div className="mt-8 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 md:grid-cols-3 xl:gap-x-8">
         {sites &&
           sites.slice(0, visibleItems).map((site: Site) => (
@@ -90,9 +27,12 @@ export default function ListSite({
             >
               {site.imageUrl && <BlurImage src={site.imageUrl} />}
               <div className="mt-4 flex items-center justify-between">
-                <h3 className=" text-sm text-gray-700">
-                  By {site.githubUrl && getGithubUsername(site.githubUrl)}
-                </h3>
+                <div className="flex items-center space-x-2">
+                  {site.avatarUrl && <BlurAvatar src={site.avatarUrl} />}
+                  <h3 className=" text-sm text-gray-700">
+                    By {site.githubUrl && getGithubUsername(site.githubUrl)}
+                  </h3>
+                </div>
                 {site?.stargazersCount && (
                   <div className="flex items-center justify-between space-x-2">
                     <IconStar className="h-4 w-4" />
@@ -103,30 +43,32 @@ export default function ListSite({
                 )}
               </div>
 
-              <h1 className="mt-2 mb-4 text-lg font-medium text-gray-900">
-                {site.websiteUrl && stripUrl(site.websiteUrl)}
-              </h1>
+              <div className="mt-4 space-y-2">
+                <h1 className="text-xl font-bold text-gray-800">
+                  {site.websiteUrl && stripUrl(site.websiteUrl)}
+                </h1>
 
-              {site.description && (
-                <p className="text-sm text-gray-700">
-                  {site.description?.length > 80
-                    ? site.description?.slice(0, 80) + "..."
-                    : site.description}
-                </p>
-              )}
-              {site?.techTags && (
-                <div className="mt-4 flex flex-wrap gap-2">
-                  {site.techTags.map((tag: string) => (
-                    <Link
-                      key={tag}
-                      href={`/site/tag/${tag}`}
-                      className="rounded bg-gray-100 px-1 py-0.5 text-xs font-medium text-gray-500"
-                    >
-                      {tag}
-                    </Link>
-                  ))}
-                </div>
-              )}
+                {site.description && (
+                  <p className="text-sm text-gray-700">
+                    {site.description?.length > 80
+                      ? site.description?.slice(0, 80) + "..."
+                      : site.description}
+                  </p>
+                )}
+                {site?.techTags && (
+                  <div className="flex flex-wrap gap-2">
+                    {site.techTags.map((tag: string) => (
+                      <Link
+                        key={tag}
+                        href={`/site/tag/${tag}`}
+                        className="rounded bg-gray-100 px-2 py-0.5 text-xs font-medium text-gray-500"
+                      >
+                        {tag}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
             </Link>
           ))}
       </div>
