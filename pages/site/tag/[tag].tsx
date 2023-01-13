@@ -9,6 +9,7 @@ import { useRouter } from "next/router";
 import TechTags from "../../../components/tech-tags";
 import { allTags } from "../../../utils/utils";
 import type { Site } from "@prisma/client";
+import NewTabLink from "../../../components/new-tab-link";
 
 const Home: NextPage = () => {
   const { query }: any = useRouter();
@@ -47,9 +48,9 @@ const Home: NextPage = () => {
           </p>
 
           <div className="flex items-center space-x-4">
-            <Link href="https://airtable.com/shrwaqGgNDP6l9Rgh">
+            <NewTabLink href="https://airtable.com/shrwaqGgNDP6l9Rgh">
               <PrimaryButton>Submit a project</PrimaryButton>
-            </Link>
+            </NewTabLink>
             <GithubRepoButton />
           </div>
         </div>

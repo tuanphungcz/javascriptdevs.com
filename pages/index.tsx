@@ -7,6 +7,7 @@ import { PrimaryButton } from "../components/button";
 import Link from "next/link";
 import TechTags from "../components/tech-tags";
 import { Site } from "@prisma/client";
+import NewTabLink from "../components/new-tab-link";
 
 const Home: NextPage = () => {
   const { data: sites } = trpc.site.getAllActive.useQuery() as {
@@ -43,9 +44,9 @@ const Home: NextPage = () => {
           </p>
 
           <div className="flex items-center space-x-4">
-            <Link href="https://airtable.com/shrwaqGgNDP6l9Rgh">
+            <NewTabLink href="https://airtable.com/shrwaqGgNDP6l9Rgh">
               <PrimaryButton>Submit a project</PrimaryButton>
-            </Link>
+            </NewTabLink>
             <GithubRepoButton />
           </div>
         </div>
