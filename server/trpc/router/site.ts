@@ -1,6 +1,21 @@
+import { Site } from "@prisma/client";
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 import { router, publicProcedure } from "../trpc";
+
+const getTagsWithCount = (sites: Site[]) => {
+  const tagsWithCount: any = {};
+  sites.forEach((site) => {
+    site.techTags.forEach((tag: string) => {
+      if (tagsWithCount[tag]) {
+        tagsWithCount[tag] = tagsWithCount[tag] + 1;
+      } else {
+        tagsWithCount[tag] = 1;
+      }
+    });
+  });
+  return tagsWithCount;
+};
 
 export const siteRouter = router({
   getAllActive: publicProcedure.query(({ ctx, input }) => {
@@ -11,6 +26,18 @@ export const siteRouter = router({
         },
       },
     });
+  }),
+
+  getAllTechTagsAndCount: publicProcedure.query(async ({ ctx, input }) => {
+    const sites: Site[] = await ctx.prisma.site.findMany({
+      where: {
+        imageUrl: {
+          not: null,
+        },
+      },
+    });
+
+    return getTagsWithCount(sites || []);
   }),
 
   getFiltered: publicProcedure

@@ -10,6 +10,7 @@ import { prisma } from "../../../server/db/client";
 
 const Home: NextPage = () => {
   const { query }: any = useRouter();
+  const { data: tagsWithCount } = trpc.site.getAllTechTagsAndCount.useQuery();
 
   const { data: sites } = trpc.site.getFiltered.useQuery({
     tag: null,
@@ -53,9 +54,12 @@ const Home: NextPage = () => {
           </div>
         </div>
 
-        {sites && (
-          <ListSite sites={sites} category={query?.category} tag={null} />
-        )}
+        <ListSite
+          sites={sites}
+          category={query?.category}
+          tag={null}
+          tagsWithCount={tagsWithCount}
+        />
       </Container>
     </>
   );

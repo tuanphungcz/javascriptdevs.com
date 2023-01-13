@@ -13,6 +13,7 @@ const Home: NextPage = () => {
     category: null,
     tag: query?.tag,
   });
+  const { data: tagsWithCount } = trpc.site.getAllTechTagsAndCount.useQuery();
 
   return (
     <>
@@ -51,7 +52,12 @@ const Home: NextPage = () => {
           </div>
         </div>
 
-        {sites && <ListSite sites={sites} category={null} tag={query.tag} />}
+        <ListSite
+          sites={sites}
+          category={null}
+          tag={query.tag}
+          tagsWithCount={tagsWithCount}
+        />
       </Container>
     </>
   );
