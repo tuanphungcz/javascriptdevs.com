@@ -2,12 +2,10 @@ import type { Site } from "@prisma/client";
 import slugify from "slugify";
 import Container from "../../components/container";
 import SiteCard from "../../components/site-card";
-import Link from "next/link";
-
 import { prisma } from "../../server/db/client";
 import { getSiteBySlug, getGithubUsername, stripUrl } from "../../utils/utils";
-import BlurImage from "../../components/blur-image";
-import { IconStar } from "tabler-icons";
+import ListItem from "../../components/list-item";
+import { useId } from "react";
 
 export default function Page({
   site,
@@ -50,40 +48,7 @@ export default function Page({
           </h2>
           <div className="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 md:grid-cols-3 xl:gap-x-8">
             {random3Sites?.map((site: Site) => (
-              <Link
-                key={site.id}
-                href={`/site/${slugify(
-                  (site.websiteUrl && stripUrl(site.websiteUrl)) || "no-url"
-                )}`}
-                className="group"
-              >
-                {site.imageUrl && <BlurImage src={site.imageUrl} />}
-                <div className="mt-4 flex items-center justify-between">
-                  <h3 className=" text-sm text-gray-700">
-                    By {site.githubUrl && getGithubUsername(site.githubUrl)}
-                  </h3>
-                  {site?.stargazersCount && (
-                    <div className="flex items-center justify-between space-x-2">
-                      <IconStar className="h-4 w-4" />
-                      <div className="text-xs text-gray-700">
-                        {site.stargazersCount}
-                      </div>
-                    </div>
-                  )}
-                </div>
-
-                <h1 className="mt-2 mb-4 text-lg font-medium text-gray-900">
-                  {site.websiteUrl && stripUrl(site.websiteUrl)}
-                </h1>
-
-                {site.description && (
-                  <p className="text-sm text-gray-700">
-                    {site.description?.length > 80
-                      ? site.description?.slice(0, 80) + "..."
-                      : site.description}
-                  </p>
-                )}
-              </Link>
+              <ListItem site={site} key={site.id} />
             ))}
           </div>
         </div>
@@ -131,6 +96,8 @@ export const getStaticProps = async ({
       imageUrl: true,
       stargazersCount: true,
       githubUrl: true,
+      avatarUrl: true,
+      techTags: true,
     },
   });
 

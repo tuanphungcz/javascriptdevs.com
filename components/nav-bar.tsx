@@ -1,5 +1,5 @@
 import { useSession, signIn, signOut } from "next-auth/react";
-import Container from "../components/container";
+import Container from "./container";
 import Link from "next/link";
 import { PrimaryButton, SecondaryButton } from "./button";
 import Image from "next/image";

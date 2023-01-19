@@ -18,7 +18,7 @@ const getTagsWithCount = (sites: Site[]) => {
 };
 
 export const siteRouter = router({
-  getAllActive: publicProcedure.query(({ ctx, input }) => {
+  getAllActive: publicProcedure.query(({ ctx }) => {
     return ctx.prisma.site.findMany({
       where: {
         imageUrl: {
@@ -28,7 +28,7 @@ export const siteRouter = router({
     });
   }),
 
-  getAllTechTagsAndCount: publicProcedure.query(async ({ ctx, input }) => {
+  getAllTechTagsAndCount: publicProcedure.query(async ({ ctx }) => {
     const sites: Site[] = await ctx.prisma.site.findMany({
       where: {
         imageUrl: {
@@ -98,19 +98,6 @@ export const siteRouter = router({
         category: {
           not: null,
         },
-      },
-    });
-  }),
-  get6RandomActive: publicProcedure.query(({ ctx }) => {
-    return ctx.prisma.site.findMany({
-      where: {
-        imageUrl: {
-          not: null,
-        },
-      },
-      take: 3,
-      orderBy: {
-        stargazersCount: "desc",
       },
     });
   }),

@@ -24,10 +24,23 @@ export default function SiteCard({ site }: { site: Site }) {
               </div>
             )}
           </div>
+
+          {site?.techTags && (
+            <div className="flex flex-wrap gap-2 py-2">
+              {site.techTags.map((tag: string) => (
+                <div
+                  key={tag}
+                  className="rounded bg-gray-200 px-2 border py-0.5 text-xs font-medium text-gray-500"
+                >
+                  {tag}
+                </div>
+              ))}
+            </div>
+          )}
+
           {site.description && (
             <p className="mt-2 text-gray-700">{site.description}</p>
           )}
-
           <div className="mt-4 flex space-x-4">
             {site.githubUrl && (
               <NewTabLink href={site.githubUrl}>

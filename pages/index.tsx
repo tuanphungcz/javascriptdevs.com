@@ -4,9 +4,8 @@ import Container from "../components/container";
 import ListSite from "../components/list-site";
 import GithubRepoButton from "../components/github-repo-button";
 import { PrimaryButton } from "../components/button";
-import Link from "next/link";
 import TechTags from "../components/tech-tags";
-import { Site } from "@prisma/client";
+import type { Site } from "@prisma/client";
 import NewTabLink from "../components/new-tab-link";
 
 const Home: NextPage = () => {

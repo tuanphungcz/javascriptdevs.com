@@ -1,14 +1,7 @@
-import { useState } from "react";
-import BlurImage from "../components/blur-image";
 import Link from "next/link";
-import slugify from "slugify";
-import { allTags, getGithubUsername, stripUrl } from "../utils/utils";
+import { allTags } from "../utils/utils";
 import { cn } from "../utils/utils";
-import { IconStar } from "tabler-icons";
-import { PrimaryButton } from "./button";
-import type { Site } from "@prisma/client";
 import { trpc } from "../utils/trpc";
-import BlurAvatar from "./blur-avatar";
 
 const Tag = ({ item, count }: any) => {
   return (
@@ -45,7 +38,7 @@ export default function TechTags() {
                 key={item.category}
                 className={cn(
                   "flex cursor-pointer items-center whitespace-nowrap rounded-md border border-gray-300 bg-white px-2 py-1 text-xs font-medium capitalize text-gray-500 shadow-sm transition hover:border-gray-400",
-                  'false' === item.category
+                  "false" === item.category
                     ? "border-zinc-500 text-gray-600"
                     : ""
                 )}

@@ -1,4 +1,4 @@
-import Navbar from "./Navbar";
+import Navbar from "./nav-bar";
 
 const Layout: React.FC<any> = ({ children }) => {
   return (
