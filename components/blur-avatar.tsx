@@ -15,7 +15,7 @@ function BlurAvatar({ src }: { src: string }) {
           (max-width: 1200px) 50vw,
           33vw"
         className={cn(
-          "object-cover object-top duration-700 ease-in-out group-hover:scale-105 group-hover:opacity-75",
+          "object-cover object-top duration-700 ease-in-out group-hover:scale-105 group-hover:opacity-75 rounded-full",
           isLoading
             ? "scale-110 blur-2xl grayscale"
             : "scale-100 blur-0 grayscale-0"
