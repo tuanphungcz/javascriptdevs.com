@@ -1,5 +1,3 @@
-![screenshot](https://javascriptdevs.com/og-image.jpg)
-
 # [JavascriptDevs.com](https://javascriptdevs.com)
 
 Awesome open-source projects and websites. Discover the Best Open-Source projects and website built with React, Next.js, Tailwind CSS, and more.
