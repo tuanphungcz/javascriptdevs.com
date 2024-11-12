@@ -4,9 +4,10 @@ import { NextRequest } from "next/server";
 import { fetchJson } from "@/utils/fetchJson";
 import { generateCodeVerifier, generateState, GitHub, Google } from "arctic";
 import { User } from "payload";
+import { APP_URL } from "@/constants";
 
 const callbackUrl = (provider: keyof typeof authProviders): string => {
-  return `${process.env.NEXT_PUBLIC_APP_URL}/api/auth/callback/${provider}`;
+  return `${APP_URL}/api/auth/callback/${provider}`;
 };
 
 const google = new Google(
