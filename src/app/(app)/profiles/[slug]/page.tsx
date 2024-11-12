@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 
 import { getUserBySlug } from "@/_features/users/actions";
 import { ProfileDetail } from "@/app/(app)/profiles/[slug]/ProfileDetail";
-import { ONE_DAY_IN_SECONDS } from "@/constants";
+import { APP_URL, ONE_DAY_IN_SECONDS } from "@/constants";
 import { getCategoryOptions } from "@/utils/helpers";
 import { Profile } from "payload-types";
 
@@ -55,7 +55,7 @@ export async function generateMetadata({
 
   const name = `${firstName} ${lastName}`;
 
-  const ogImageUrl = new URL(`${process.env.NEXT_PUBLIC_APP_URL}/api/og/users`);
+  const ogImageUrl = new URL(`${APP_URL}/api/og/users`);
   ogImageUrl.searchParams.append("name", name ?? "");
   ogImageUrl.searchParams.append("description", description ?? "");
   ogImageUrl.searchParams.append(
@@ -72,7 +72,7 @@ export async function generateMetadata({
     openGraph: {
       title: `${name} - javascriptdevs.com`,
       description: description ?? "",
-      url: `${process.env.NEXT_PUBLIC_APP_URL}/users/${slug}`,
+      url: `${APP_URL}/users/${slug}`,
       siteName: "javas.com",
       images: [ogImageUrl.toString()],
       type: "website",

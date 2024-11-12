@@ -3,7 +3,7 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
-import { AUTH_REDIRECT_COOKIE } from "@/constants";
+import { APP_URL, AUTH_REDIRECT_COOKIE } from "@/constants";
 import config from "@payload-config";
 import { getPayloadHMR } from "@payloadcms/next/utilities";
 
@@ -186,7 +186,7 @@ export const signIn = async (values: { email: string; password: string }) => {
     }
 
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_APP_URL!}/api/users/login`,
+      `${APP_URL!}/api/users/login`,
       {
         method: "POST",
         headers: {
