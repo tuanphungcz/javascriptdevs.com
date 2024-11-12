@@ -1,0 +1,24 @@
+{
+  "importOrder": [
+    "<BUILTIN_MODULES>",
+    "",
+    "<TYPES>",
+    "^(react/(.*)$)|^(react$)|^(react-native(.*)$)",
+    "^(next/(.*)$)|^(next$)",
+    "^(expo(.*)$)|^(expo$)",
+    "",
+    "<THIRD_PARTY_MODULES>",
+    "",
+    "<TYPES>^@org",
+    "^@org/(.*)$",
+    "",
+    "<TYPES>^[.|..|~]",
+    "^~/",
+    "^[../]",
+    "^[./]"
+  ],
+  "plugins": [
+    "prettier-plugin-tailwindcss",
+    "@ianvs/prettier-plugin-sort-imports"
+  ]
+}

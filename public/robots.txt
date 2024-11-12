@@ -1,9 +1,0 @@
-# *
-User-agent: *
-Allow: /
-
-# Host
-Host: https://javascriptdevs.com
-
-# Sitemaps
-Sitemap: https://javascriptdevs.com/sitemap.xml
